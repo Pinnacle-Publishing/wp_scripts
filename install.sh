@@ -61,6 +61,10 @@ certbot --nginx -d "${DOMAIN}" -d "www.${DOMAIN}"
 
 # restart service
 
+echo "Add user ${strarr[0]}"
 useradd ${strarr[0]}
+
+echo "Restart Service"
+
 systemctl restart php7.4-fpm
 systemctl restart nginx
