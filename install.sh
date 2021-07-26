@@ -47,4 +47,15 @@ rm -rf latest.tar.gz
 rm -rf wordpress
 echo "..... Done ....."
 
+
+read -p "Do yoy want to install certbot for $1? " -n 1 -r
+echo
+
+if [[ ! $REPLY =~ ^[Y]$ ]]
+then
+  exit 1
+fi
+
+certbot --nginx -d $1 -d www.$1
+
 # restart service
