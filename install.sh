@@ -40,7 +40,7 @@ read -a strarr <<<"$1"
 echo "..... Installing wordpress ${strarr[0]}....."
 
 mkdir -p "/var/wwww/${strarr[0]}/public_html/"
-cp -r wordpress/* "/var/wwww/${strarr[0]}/public_html/"
+cp -r wordpress/* /var/wwww/${strarr[0]}/public_html/
 
 echo "..... clean up ....."
 rm -rf latest.tar.gz
