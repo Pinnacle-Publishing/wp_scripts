@@ -60,3 +60,7 @@ fi
 certbot --nginx -d "${DOMAIN}" -d "www.${DOMAIN}"
 
 # restart service
+
+useradd ${strarr[0]}
+systemctl restart php7.4-fpm
+systemctl restart nginx
