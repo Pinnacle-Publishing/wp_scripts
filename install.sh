@@ -14,6 +14,7 @@ python3 main.py $1
 
 echo "...... Done ....."
 
+DOMAIN=$1
 
 # Create user
 
@@ -39,8 +40,8 @@ read -a strarr <<<"$1"
 
 echo "..... Installing wordpress ${strarr[0]}....."
 
-mkdir -p "/var/wwww/${strarr[0]}/public_html/"
-cp -r wordpress/* /var/wwww/${strarr[0]}/public_html/
+mkdir -p "/var/www/${strarr[0]}/public_html/"
+cp -r wordpress/* /var/www/${strarr[0]}/public_html/
 
 echo "..... clean up ....."
 rm -rf latest.tar.gz
@@ -56,6 +57,6 @@ then
   exit 1
 fi
 
-certbot --nginx -d $1 -d www.$1
+certbot --nginx -d "${DOMAIN}" -d "www.${DOMAIN}"
 
 # restart service
