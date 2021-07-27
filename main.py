@@ -45,6 +45,12 @@ if __name__ == '__main__':
         nginx_path = f'/etc/nginx/sites-available/{site_name}'
         nginx_enable_path = f'/etc/nginx/sites-enabled/{site_name}'
 
+        print("============ Try To remove old file ==================")
+        try:
+            os.system(f'rm -f {nginx_enable_path}')
+        except Exception as e:
+            print(e)
+
         print("============ symlink nginx config ==================")
         os.system(f'ln -s {nginx_path} {nginx_enable_path}')
 
