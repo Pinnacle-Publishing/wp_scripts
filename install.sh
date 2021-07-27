@@ -40,16 +40,6 @@ read -a strarr <<<"$1"
 
 SITE_NAME=${strarr[0]}
 
-echo "..... Installing wordpress ${SITE_NAME}....."
-
-mkdir -p "/var/www/${SITE_NAME}/public_html/"
-cp -r wordpress/* /var/www/${SITE_NAME}/public_html/
-
-echo "..... clean up ....."
-rm -rf latest.tar.gz
-rm -rf wordpress
-echo "..... Done ....."
-
 echo "Add user ${SITE_NAME}"
 useradd ${SITE_NAME}
 
@@ -61,6 +51,17 @@ PASS=$(openssl rand -base64 16)
 echo $PASS >> ./${SITE_NAME}.txt
 
 ./database.sh ${SITE_NAME} ${SITE_NAME} ${PASS}
+
+
+echo "..... Installing wordpress ${SITE_NAME}....."
+
+mkdir -p "/var/www/${SITE_NAME}/public_html/"
+cp -r wordpress/* /var/www/${SITE_NAME}/public_html/
+
+echo "..... clean up ....."
+rm -rf latest.tar.gz
+rm -rf wordpress
+echo "..... Done ....."
 
 
 read -p "Do yoy want to install certbot for $1? " -n 1 -r
