@@ -64,6 +64,10 @@ certbot --nginx -d "${DOMAIN}" -d "www.${DOMAIN}"
 echo "Add user ${strarr[0]}"
 useradd ${strarr[0]}
 
+PASS=$(openssl rand -base64 16)
+
+./database.sh ${strarr[0]} ${strarr[0]} ${PASS}
+
 echo "Restart Service"
 
 systemctl restart php7.4-fpm
