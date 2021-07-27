@@ -16,24 +16,7 @@ echo "...... Done ....."
 
 DOMAIN=$1
 
-# Create user
 
-# Create database
-
-
-read -p "Do yoy want to install wordpress for $1? " -n 1 -r
-echo
-
-if [[ ! $REPLY =~ ^[Y]$ ]]
-then
-  exit 1
-fi
-
-echo ".... Downloading latest wordpress ....."
-wget https://wordpress.org/latest.tar.gz
-
-echo "..... Unzipping file ....."
-tar xvf latest.tar.gz
 
 IFS='.'
 read -a strarr <<<"$1"
@@ -45,18 +28,36 @@ else
     SITE_NAME=${strarr[0]}
 fi
 
+
+# Create user
 echo "Add user ${SITE_NAME}"
 useradd ${SITE_NAME}
-
-
 chown -R ${SITE_NAME}:${SITE_NAME} /var/www/${SITE_NAME}/public_html/
 
+
+# Create database
+echo ".... Create new database ....."
 PASS=$(openssl rand -base64 16)
 
 echo $PASS >> ./${SITE_NAME}.txt
 
 ./database.sh ${SITE_NAME} ${SITE_NAME} ${PASS}
 
+
+read -p "Do yoy want to install wordpress for $1? " -n 1 -r
+echo
+
+if [[ ! $REPLY =~ ^[Y]$ ]]
+then
+  exit 1
+fi
+
+echo ".... Downloading latest wordpress ....."
+
+wget https://wordpress.org/latest.tar.gz
+
+echo "..... Unzipping file ....."
+tar xvf latest.tar.gz
 
 echo "..... Installing wordpress ${SITE_NAME}....."
 
