@@ -68,7 +68,7 @@ chmown -R ${SITE_NAME}:${SITE_NAME} /var/www/${SITE_NAME}/public_html/
 
 PASS=$(openssl rand -base64 16)
 
-echo $PASS > ./${SITE_NAME}.txt
+echo $PASS >> ./${SITE_NAME}.txt
 
 ./database.sh ${SITE_NAME} ${SITE_NAME} ${PASS}
 
