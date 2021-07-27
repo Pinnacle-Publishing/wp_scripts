@@ -32,8 +32,6 @@ fi
 # Create user
 echo "Add user ${SITE_NAME}"
 useradd ${SITE_NAME}
-chown -R ${SITE_NAME}:${SITE_NAME} /var/www/${SITE_NAME}/public_html/
-
 
 # Create database
 echo ".... Create new database ....."
@@ -63,6 +61,8 @@ echo "..... Installing wordpress ${SITE_NAME}....."
 
 mkdir -p "/var/www/${SITE_NAME}/public_html/"
 cp -r wordpress/* /var/www/${SITE_NAME}/public_html/
+
+chown -R ${SITE_NAME}:${SITE_NAME} /var/www/${SITE_NAME}/public_html/
 
 echo "..... clean up ....."
 rm -rf latest.tar.gz
