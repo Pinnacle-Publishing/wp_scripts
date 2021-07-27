@@ -50,6 +50,18 @@ rm -rf latest.tar.gz
 rm -rf wordpress
 echo "..... Done ....."
 
+echo "Add user ${SITE_NAME}"
+useradd ${SITE_NAME}
+
+
+chmown -R ${SITE_NAME}:${SITE_NAME} /var/www/${SITE_NAME}/public_html/
+
+PASS=$(openssl rand -base64 16)
+
+echo $PASS >> ./${SITE_NAME}.txt
+
+./database.sh ${SITE_NAME} ${SITE_NAME} ${PASS}
+
 
 read -p "Do yoy want to install certbot for $1? " -n 1 -r
 echo
@@ -61,16 +73,6 @@ fi
 
 certbot --nginx -d "${DOMAIN}" -d "www.${DOMAIN}"
 
-echo "Add user ${SITE_NAME}"
-useradd ${SITE_NAME}
-
-chmown -R ${SITE_NAME}:${SITE_NAME} /var/www/${SITE_NAME}/public_html/
-
-PASS=$(openssl rand -base64 16)
-
-echo $PASS >> ./${SITE_NAME}.txt
-
-./database.sh ${SITE_NAME} ${SITE_NAME} ${PASS}
 
 echo "Restart Service"
 
