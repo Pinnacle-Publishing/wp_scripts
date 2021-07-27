@@ -25,4 +25,4 @@ fi
 $MYSQL -uroot -p -e "$SQL"
 
 # Let the user know the database was created
-green "Database $1 and user $2 created with a password you chose"
+green "Database $1 and user $2 created with a password $3"

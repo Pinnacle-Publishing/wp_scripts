@@ -38,10 +38,12 @@ tar xvf latest.tar.gz
 IFS='.'
 read -a strarr <<<"$1"
 
-echo "..... Installing wordpress ${strarr[0]}....."
+SITE_NAME=${strarr[0]}
 
-mkdir -p "/var/www/${strarr[0]}/public_html/"
-cp -r wordpress/* /var/www/${strarr[0]}/public_html/
+echo "..... Installing wordpress ${SITE_NAME}....."
+
+mkdir -p "/var/www/${SITE_NAME}/public_html/"
+cp -r wordpress/* /var/www/${SITE_NAME}/public_html/
 
 echo "..... clean up ....."
 rm -rf latest.tar.gz
@@ -59,14 +61,14 @@ fi
 
 certbot --nginx -d "${DOMAIN}" -d "www.${DOMAIN}"
 
-# restart service
+echo "Add user ${SITE_NAME}"
+useradd ${SITE_NAME}
 
-echo "Add user ${strarr[0]}"
-useradd ${strarr[0]}
+chmown -R ${SITE_NAME}:${SITE_NAME} /var/www/${SITE_NAME}/public_html/
 
 PASS=$(openssl rand -base64 16)
 
-./database.sh ${strarr[0]} ${strarr[0]} ${PASS}
+./database.sh ${SITE_NAME} ${SITE_NAME} ${PASS}
 
 echo "Restart Service"
 
