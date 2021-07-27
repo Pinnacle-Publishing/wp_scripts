@@ -38,7 +38,7 @@ tar xvf latest.tar.gz
 IFS='.'
 read -a strarr <<<"$1"
 
-if [ ${#distro[@]} -eq 3 ]
+if [ ${#strarr[@]} -eq 3 ]
 then
     SITE_NAME=${strarr[1]}
 else
