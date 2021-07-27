@@ -70,7 +70,15 @@ rm -rf wordpress
 echo "..... Done ....."
 
 
-read -p "Do yoy want to install certbot for $1? " -n 1 -r
+
+
+echo "Restart Service"
+
+systemctl restart php7.4-fpm
+systemctl restart nginx
+
+
+read -p "Do yoy want to install certbot for WWW.$1? " -n 1 -r
 echo
 
 if [[ ! $REPLY =~ ^[Y]$ ]]
@@ -78,10 +86,10 @@ then
   exit 1
 fi
 
-certbot --nginx -d "${DOMAIN}" -d "www.${DOMAIN}"
-
+certbot --nginx -d "www.${DOMAIN}"
 
 echo "Restart Service"
 
 systemctl restart php7.4-fpm
 systemctl restart nginx
+
