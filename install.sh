@@ -44,7 +44,7 @@ echo "Add user ${SITE_NAME}"
 useradd ${SITE_NAME}
 
 
-chmown -R ${SITE_NAME}:${SITE_NAME} /var/www/${SITE_NAME}/public_html/
+chown -R ${SITE_NAME}:${SITE_NAME} /var/www/${SITE_NAME}/public_html/
 
 PASS=$(openssl rand -base64 16)
 
