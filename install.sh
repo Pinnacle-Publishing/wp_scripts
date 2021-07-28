@@ -7,7 +7,7 @@ fi
 
 apt update
 apt install -y python3 python3-pip nginx php7.4-fpm wget mariadb-server
-pip install jinja2 validators
+pip install jinja2 validators requests
 
 echo ".... Installing nginx domain ....."
 python3 main.py $1
@@ -67,9 +67,8 @@ chown -R ${SITE_NAME}:${SITE_NAME} /var/www/${SITE_NAME}/public_html/
 echo "..... clean up ....."
 rm -rf latest.tar.gz
 rm -rf wordpress
-echo "..... Done ....."
 
-
+python3 password.py $1
 
 
 echo "Restart Service"
@@ -93,3 +92,4 @@ echo "Restart Service"
 systemctl restart php7.4-fpm
 systemctl restart nginx
 
+echo "..... Done ....."
