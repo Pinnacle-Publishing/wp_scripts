@@ -2,7 +2,8 @@ import os
 from jinja2 import Template
 import argparse
 import validators
-
+import secrets
+import string
 
 def get_sitename(domain: str):
     return domain.split('.')[-2]
@@ -18,20 +19,31 @@ def get_pool_sample():
         return file.read()
 
 
-def save_report(file_path, html_content):
+def get_wp_sample():
+    with open("wp-config.php", 'r', encoding='UTF-8') as file:
+        return file.read()
+
+
+def save_report(file_path, file_content):
     with open(file_path, 'w+', encoding='UTF-8') as file:
-        file.write(html_content)
+        file.write(file_content)
+
+
+def generate_password() -> str:
+    alphabet = string.ascii_letters + string.digits  # + string.punctuation  If you want symbol in password
+    password = ''.join(secrets.choice(alphabet) for i in range(20))  # for a 20-character password
+    return password.strip()
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Process domain.')
-    parser.add_argument('domains', metavar='domains', type=str, nargs='+',
+    parser.add_argument('domain', metavar='domain', type=str, nargs='+',
                         help='an integer for the accumulator')
     args = parser.parse_args()
 
-    print(args.domains)
+    print(args.domain)
 
-    for do in args.domains:
+    for do in args.domain:
         if not validators.domain(do):
             raise Exception("Invalid domain")
         site_name = get_sitename(do)
@@ -39,6 +51,12 @@ if __name__ == '__main__':
             'site_name': site_name,
             'domain': do,
         }
+
+        passwd = generate_password()
+        print(passwd)
+        with open(f"{site_name}.txt", 'w+') as f:
+            f.write(passwd)
+
         print("============ make code folder ==================")
         os.system(f'mkdir -p /var/www/{site_name}/public_html')
 
