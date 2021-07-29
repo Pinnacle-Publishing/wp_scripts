@@ -16,8 +16,6 @@ echo "...... Done ....."
 
 DOMAIN=$1
 
-
-
 IFS='.'
 read -a strarr <<<"$1"
 
@@ -67,7 +65,7 @@ echo "..... clean up ....."
 rm -rf latest.tar.gz
 rm -rf wordpress
 
-python3 password.py $1
+python3 password.py "${DOMAIN}"
 
 
 echo "Restart Service"
