@@ -35,9 +35,8 @@ useradd ${SITE_NAME}
 
 # Create database
 echo ".... Create new database ....."
-PASS=$(openssl rand -base64 16)
-
-echo $PASS >> ./${SITE_NAME}.txt
+PASS=$(cat "${SITE_NAME}.txt" | xargs)
+echo "${PASS}"
 
 ./database.sh ${SITE_NAME} ${SITE_NAME} ${PASS}
 
@@ -77,7 +76,7 @@ systemctl restart php7.4-fpm
 systemctl restart nginx
 
 
-read -p "Do yoy want to install certbot for WWW.$1? " -n 1 -r
+read -p "Do yoy want to install certbot for $1? " -n 1 -r
 echo
 
 if [[ ! $REPLY =~ ^[Y]$ ]]
@@ -85,7 +84,7 @@ then
   exit 1
 fi
 
-certbot --nginx -d "www.${DOMAIN}"
+certbot --nginx -d "${DOMAIN}"
 
 echo "Restart Service"
 
