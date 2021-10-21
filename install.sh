@@ -6,7 +6,7 @@ if [ "$#" -ne 1 ]; then
 fi
 
 apt update
-apt install -y python3 python3-pip nginx php7.4-fpm wget mariadb-server
+apt install -y python3 python3-pip nginx php7.4-fpm wget mariadb-server php7.4-mysql
 pip install jinja2 validators requests
 
 echo ".... Installing nginx domain ....."
