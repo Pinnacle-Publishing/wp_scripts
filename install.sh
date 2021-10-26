@@ -5,6 +5,9 @@ if [ "$#" -ne 1 ]; then
     exit 1
 fi
 
+sudo apt install -y software-properties-common
+sudo add-apt-repository -y ppa:ondrej/php
+
 apt update
 apt install -y python3 python3-pip nginx php7.4-fpm wget mariadb-server php7.4-mysql
 pip install jinja2 validators requests
