@@ -63,6 +63,7 @@ mkdir -p "/var/www/${SITE_NAME}/public_html/"
 cp -r wordpress/* /var/www/${SITE_NAME}/public_html/
 
 chown -R ${SITE_NAME}:${SITE_NAME} /var/www/${SITE_NAME}/public_html/
+chmod -R 775 /var/www/${SITE_NAME}/public_html/
 
 echo "..... clean up ....."
 rm -rf latest.tar.gz
