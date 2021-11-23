@@ -10,7 +10,7 @@ readonly MYSQL=`which mysql`
 
 # Construct the MySQL query
 readonly Q1="CREATE DATABASE IF NOT EXISTS $1;"
-readonly Q2="GRANT ALL ON *.* TO '$2'@'localhost' IDENTIFIED BY '$3';"
+readonly Q2="GRANT ALL ON $1.* TO '$2'@'localhost' IDENTIFIED BY '$3';"
 readonly Q3="FLUSH PRIVILEGES;"
 readonly SQL="${Q1}${Q2}${Q3}"
 
